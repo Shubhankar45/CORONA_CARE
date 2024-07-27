@@ -21,9 +21,8 @@ const App = () => {
           <Route path='/about' element={<AboutUs/>}/>
           <Route path='/register' element={<Register/>}/>
           <Route path='/login' element={<Login/>}/>
-
         </Routes>
-        <ToastContainer position="top-center" />
+        <ToastContainer position='top-center' />
       </Router>
 
 
