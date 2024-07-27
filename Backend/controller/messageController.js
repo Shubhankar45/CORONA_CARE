@@ -1,10 +1,13 @@
 import {Message} from '../models/messageSchema.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncError.js';
+import errorHandler from '../middleware/errorMiddleware.js';
 
-export const sendMessage = async (req, res, next) => {
+
+export const sendMessage = catchAsyncErrors(async (req, res, next) => {
     const { firstName, lastName, email, phone, message } = req.body;
 
     if (!firstName || !lastName || !email || !phone || !message) {
-        return res.json({ success: false, message: 'All fields are required' });
+        return next(new errorHandler("Please Fill Full Form!!!"))
     }
 
     try {
@@ -14,4 +17,4 @@ export const sendMessage = async (req, res, next) => {
         console.error(error);
         res.status(500).json({ success: false, message: 'Error' });
     }
-};
+})
